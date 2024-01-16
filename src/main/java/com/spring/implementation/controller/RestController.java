@@ -23,7 +23,7 @@ public class RestController {
 	
 	@GetMapping("/welcome")
 	public String welcome() {
-		return "your rest endpoint works";
+		return "Jouher-REST endpoint is working";
 	}
 	
 	@PostMapping("/save")
@@ -32,7 +32,7 @@ public class RestController {
 		product.setName(productDTO.getName());
 		product.setPrice(productDTO.getPrice());
 		Products prod = productRepo.save(product);
-		return generateResponse("Items saved successfully!", HttpStatus.OK, prod);
+		return generateResponse("Hurray - Items saved successfully !!", HttpStatus.OK, prod);
 	}
 
 	 public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, Object responseObj) {
@@ -47,7 +47,7 @@ public class RestController {
 	 @GetMapping("/getItems")
 	 public ResponseEntity<Object> getItems(){
 		 List<Products> items = productRepo.findAll();
-		 return generateResponse("Complete Data!", HttpStatus.OK, items);
+		 return generateResponse("Oh God - Complete Data is Here !!", HttpStatus.OK, items);
 	 }
 
 
