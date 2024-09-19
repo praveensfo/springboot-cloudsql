@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.spring.implementation.model.Products;
-import com.spring.implementation.model.ProductsDTO;
-import com.spring.implementation.repository.ProductRepository;
+import com.spring.implementation.model.Users;
+import com.spring.implementation.model.UsersDTO;
+import com.spring.implementation.repository.UserRepository;
 
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 	@Autowired
-	ProductRepository productRepo;
+	UserRepository productRepo;
 	
 	@GetMapping("/welcome")
 	public String welcome() {
@@ -27,11 +27,11 @@ public class RestController {
 	}
 	
 	@PostMapping("/save")
-	public ResponseEntity<Object> save(@RequestBody ProductsDTO productDTO) {
-		Products product = new Products();
+	public ResponseEntity<Object> save(@RequestBody UsersDTO productDTO) {
+		Users product = new Users();
 		product.setName(productDTO.getName());
-		product.setPrice(productDTO.getPrice());
-		Products prod = productRepo.save(product);
+		product.setRole(productDTO.getRole());
+		Users prod = productRepo.save(product);
 		return generateResponse("Hurray - Items saved successfully !!", HttpStatus.OK, prod);
 	}
 
@@ -46,7 +46,7 @@ public class RestController {
 
 	 @GetMapping("/getItems")
 	 public ResponseEntity<Object> getItems(){
-		 List<Products> items = productRepo.findAll();
+		 List<Users> items = productRepo.findAll();
 		 return generateResponse("Oh God - Complete Data is Here !!", HttpStatus.OK, items);
 	 }
 

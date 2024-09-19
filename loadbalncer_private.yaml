@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal-lb-service
+  namespace: default
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+spec:
+  type: LoadBalancer
+ # loadBalancerIP: [STATIC_INTERNAL_IP]   # Optional: Pre-allocate a static internal IP
+  selector:
+    app: cloudsql-users
+  ports:
+  - protocol: TCP
+    port: 80        # External port (Load Balancer)
+    targetPort: 9000 # Internal service port on the Pods

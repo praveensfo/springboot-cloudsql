@@ -5,15 +5,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "product")
+@Table(name = "users")
 @Entity
-public class Products {
+public class Users {
 
 	@Id
 	@jakarta.persistence.GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String name;
-	private double price;
+	private String role;
+
 	public int getId() {
 		return id;
 	}
@@ -26,11 +27,11 @@ public class Products {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
-		return price;
+	public String getRole() {
+		return role;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

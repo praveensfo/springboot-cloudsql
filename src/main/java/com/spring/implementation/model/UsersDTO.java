@@ -1,20 +1,20 @@
 package com.spring.implementation.model;
 
-public class ProductsDTO {
+public class UsersDTO {
 	
 	private String name;
-	private double price;
+	private String role;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
-		return price;
+	public String getRole() {
+		return role;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	
