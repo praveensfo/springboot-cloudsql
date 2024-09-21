@@ -9,8 +9,8 @@ spec:
   type: LoadBalancer
  # loadBalancerIP: [STATIC_INTERNAL_IP]   # Optional: Pre-allocate a static internal IP
   selector:
-    app: cloudsql-users
+    app: userdatasample
   ports:
   - protocol: TCP
     port: 80        # External port (Load Balancer)
-    targetPort: 9000 # Internal service port on the Pods
+    targetPort: 8080 # Internal service port on the Pods

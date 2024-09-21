@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"userapi-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"userapi-sha256-1"}]},"modified":true}'
-    autopilot.gke.io/warden-version: 3.0.31
+    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"userdatasample-sha256-1"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"userdatasample-sha256-1"}]},"modified":true}'
+    autopilot.gke.io/warden-version: 3.0.34
     deployment.kubernetes.io/revision: "1"
-  creationTimestamp: "2024-09-19T04:55:58Z"
+  creationTimestamp: "2024-09-21T05:19:40Z"
   generation: 2
   labels:
-    app: cloudsql-users
+    app: userdatasample
   managedFields:
   - apiVersion: apps/v1
     fieldsType: FieldsV1
@@ -42,7 +42,7 @@ metadata:
               f:app: {}
           f:spec:
             f:containers:
-              k:{"name":"userapi-sha256-1"}:
+              k:{"name":"userdatasample-sha256-1"}:
                 .: {}
                 f:image: {}
                 f:imagePullPolicy: {}
@@ -57,7 +57,7 @@ metadata:
             f:terminationGracePeriodSeconds: {}
     manager: unknown
     operation: Update
-    time: "2024-09-19T04:55:58Z"
+    time: "2024-09-21T05:19:40Z"
   - apiVersion: apps/v1
     fieldsType: FieldsV1
     fieldsV1:
@@ -65,6 +65,7 @@ metadata:
         f:annotations:
           f:deployment.kubernetes.io/revision: {}
       f:status:
+        f:availableReplicas: {}
         f:conditions:
           .: {}
           k:{"type":"Available"}:
@@ -84,24 +85,24 @@ metadata:
             f:status: {}
             f:type: {}
         f:observedGeneration: {}
+        f:readyReplicas: {}
         f:replicas: {}
-        f:unavailableReplicas: {}
         f:updatedReplicas: {}
     manager: kube-controller-manager
     operation: Update
     subresource: status
-    time: "2024-09-19T05:21:21Z"
-  name: cloudsql-users
+    time: "2024-09-21T05:25:12Z"
+  name: userdatasample
   namespace: default
-  resourceVersion: "28190"
-  uid: 330df67e-2f62-44b9-93b1-118f62adf9e9
+  resourceVersion: "13334"
+  uid: 9538a03c-fa46-40bd-87e3-bb46204f1d9e
 spec:
   progressDeadlineSeconds: 600
-  replicas: 5
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: cloudsql-users
+      app: userdatasample
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -111,12 +112,12 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: cloudsql-users
+        app: userdatasample
     spec:
       containers:
-      - image: gcr.io/innov-htfr-0mhe-1/userapi@sha256:d001389ae4a25376b3cfe7cb687554c8fc81894e36552280e4a927a1156792b0
+      - image: gcr.io/innov-htfr-0mhe-1/userdatasample@sha256:bd69a7f77e379cf58e16316701f60e6133ae06efe5bed0a967fdf49d6b4f3cd3
         imagePullPolicy: IfNotPresent
-        name: userapi-sha256-1
+        name: userdatasample-sha256-1
         resources:
           limits:
             ephemeral-storage: 1Gi
@@ -143,20 +144,21 @@ spec:
         operator: Equal
         value: amd64
 status:
+  availableReplicas: 1
   conditions:
-  - lastTransitionTime: "2024-09-19T04:55:58Z"
-    lastUpdateTime: "2024-09-19T04:57:39Z"
-    message: ReplicaSet "cloudsql-users-7ddb66d5c6" has successfully progressed.
+  - lastTransitionTime: "2024-09-21T05:21:56Z"
+    lastUpdateTime: "2024-09-21T05:21:56Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2024-09-21T05:19:40Z"
+    lastUpdateTime: "2024-09-21T05:21:56Z"
+    message: ReplicaSet "userdatasample-6769b88b54" has successfully progressed.
     reason: NewReplicaSetAvailable
     status: "True"
     type: Progressing
-  - lastTransitionTime: "2024-09-19T05:00:52Z"
-    lastUpdateTime: "2024-09-19T05:00:52Z"
-    message: Deployment does not have minimum availability.
-    reason: MinimumReplicasUnavailable
-    status: "False"
-    type: Available
   observedGeneration: 2
-  replicas: 5
-  unavailableReplicas: 5
-  updatedReplicas: 5
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
