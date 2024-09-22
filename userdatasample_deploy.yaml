@@ -7,7 +7,7 @@ metadata:
     app: userdatasample
 
 spec:
-  replicas: 3  # You can adjust this based on your scaling needs
+  replicas: 2  # You can adjust this based on your scaling needs
   selector:
     matchLabels:
       app: userdatasample
@@ -18,41 +18,42 @@ spec:
         app: userdatasample
 
     spec:
+      # imagePullSecrets:
+      # - name: regcred  # Ensure you have created this secret
       containers:
         - name: userdatasample
-
-          image: gcr.io/gcr.io/innov-htfr-0mhe-1 userdatasample:v3  # Update this with your container image
+          image: gcr.io/innov-htfr-0mhe-1/userdatasample:v3 # Update this with your container image
           ports:
             - containerPort: 8080
-          env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://127.0.0.1:3306/[your-database-name]
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: username
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: password
+          # env:
+          #   - name: SPRING_DATASOURCE_URL
+          #     value: jdbc:mysql://127.0.0.1:3306/[your-database-name]
+          #   - name: SPRING_DATASOURCE_USERNAME
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: db-credentials
+          #         key: username
+          #   - name: SPRING_DATASOURCE_PASSWORD
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: db-credentials
+          #         key: password
         # Cloud SQL Proxy container
-        - name: cloudsql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
-          command: ["/cloud_sql_proxy", 
-                    "-instances=[your-project-id]:[region]:[instance-id]=tcp:3306"]
-          securityContext:
-            runAsUser: 2  # non-root user
-            allowPrivilegeEscalation: false
-          volumeMounts:
-            - name: service-account
-              mountPath: /secrets
-              readOnly: true
-      volumes:
-        - name: service-account
-          secret:
-            secretName: gcp-sa
+      #   - name: cloudsql-proxy
+      #     image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+      #     command: ["/cloud_sql_proxy", 
+      #               "-instances=[your-project-id]:[region]:[instance-id]=tcp:3306"]
+      #     securityContext:
+      #       runAsUser: 2  # non-root user
+      #       allowPrivilegeEscalation: false
+      #     volumeMounts:
+      #       - name: service-account
+      #         mountPath: /secrets
+      #         readOnly: true
+      # volumes:
+      #   - name: service-account
+      #     secret:
+      #       secretName: gcp-sa
 ---
 apiVersion: v1
 kind: Service
