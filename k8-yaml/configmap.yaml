@@ -5,7 +5,7 @@ metadata:
   namespace: default # Replace with your namespace
 data:
   # Define your configuration values as key-value pairs
-  database_url: "jdbc:mysql://your-cloud-sql-instance:3306/testuser"
+  database_url: "jdbc:mysql://10.146.240.3:3306/testuser"
   database_user: "devuser"
   # Instead of storing the password directly, use a secret
   database.password: "use-secret-ref:mysql-credentials#password"
