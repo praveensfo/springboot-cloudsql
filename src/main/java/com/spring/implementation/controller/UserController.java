@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -60,4 +65,18 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+ 
+
+
+@GetMapping("/environment")
+public String getAllenvvar() {
+    Map<String, String> envVars = System.getenv();
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        return mapper.writeValueAsString(envVars);
+    } catch (JsonProcessingException e) {
+        return "Error convertinglogs " + e.getMessage();
+    }
+}
 }
