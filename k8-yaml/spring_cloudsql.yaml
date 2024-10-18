@@ -38,3 +38,22 @@ spec:
                 secretKeyRef:
                   name: mysql-credentials
                   key: password
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config-map
+  namespace: default # Replace with your namespace
+data:
+  # Define your configuration values as key-value pairs
+  database_url: "jdbc:mysql://10.146.240.3:3306/testuser"
+  database_user: "devuser"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-credentials
+  namespace: default # Replace with your namespace
+type: Opaque # Or use 'kubernetes.io/dockerconfigjson' if applicable
+data:
+  password: ZGV2cGFzc3dvcmQ= 

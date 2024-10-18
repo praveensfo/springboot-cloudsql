@@ -5,7 +5,7 @@ metadata:
   labels:
     app: userdatasample
 spec:
-  replicas: 3 
+  replicas: 2 
   selector:
     matchLabels:
       app: userdatasample
@@ -14,14 +14,21 @@ spec:
       labels:
         app: userdatasample
     spec:
+      # volumes section moved to the correct level
+      volumes:
+        - name: git-config-volume
+          gitRepo:
+            repository: https://github.com/praveensfo/propertyConfig.git
+            revision: main 
+            directory: config 
       containers:
         - name: userdatasample
-          image: gcr.io/innov-htfr-0mhe-1/userdatasample:v8
+          image: gcr.io/innov-htfr-0mhe-1/userdatasample:v5 
           ports:
             - containerPort: 8080
           envFrom: 
-          - configMapRef:
-              name: my-config-map 
+            - configMapRef:
+                name: my-config-map 
           env:
             - name: SPRING_DATASOURCE_URL
               valueFrom:
@@ -38,3 +45,10 @@ spec:
                 secretKeyRef:
                   name: mysql-credentials
                   key: password
+            - name: SPRING_PROFILES_ACTIVE
+              value: "development" 
+            - name: SPRING_CONFIG_LOCATION
+              value: "file:/etc/my-app-config/config/${SPRING_PROFILES_ACTIVE}/"
+          volumeMounts: # Make sure this is within the 'containers' section
+            - name: git-config-volume
+              mountPath: /etc/my-app-config
