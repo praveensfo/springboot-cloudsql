@@ -9,4 +9,4 @@ data:
   database_user: "devuser"
   # Instead of storing the password directly, use a secret
   database.password: "use-secret-ref:mysql-credentials#password"
-  other_config_key: "foo"
+  other_config_key: "foo123"

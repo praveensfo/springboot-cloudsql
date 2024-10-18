@@ -19,9 +19,9 @@ spec:
           image: gcr.io/innov-htfr-0mhe-1/userdatasample:v8
           ports:
             - containerPort: 8080
-          envFrom: 
-          - configMapRef:
-              name: my-config-map 
+          volumeMounts:
+          - name: config-volume
+            mountPath: /app/config # Mount path inside the container
           env:
             - name: SPRING_DATASOURCE_URL
               valueFrom:
@@ -38,3 +38,12 @@ spec:
                 secretKeyRef:
                   name: mysql-credentials
                   key: password
+            - name: OTHER_CONFIG_KEY  # Define the environment variable name
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config-map
+                  key: other_config_key
+      volumes:
+      - name: config-volume
+        configMap:
+          name: my-config-map 
