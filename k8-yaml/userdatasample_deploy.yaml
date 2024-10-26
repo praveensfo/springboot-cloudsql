@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: userdatasample
-          image: gcr.io/innov-htfr-0mhe-1/userdatasample:v8
+          image: gcr.io/innov-htfr-0mhe-1/userdatasample:v9
           ports:
             - containerPort: 8080
           volumeMounts:
